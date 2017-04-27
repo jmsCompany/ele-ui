@@ -1,0 +1,127 @@
+<div class="cont">
+    <div class="r-header-body">
+        <h2>签字名称：信息采集</h2>
+        <div class="right-list">
+            <input type="text" id='q' placeholder="">
+            <button id="add" class="button-sytle1">添加</button>
+        </div>
+    </div>
+    <table id="tableSYS" class="tabletxt" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>签字层级</th>
+                <th>签字内容</th>
+                <th>应签字部门</th>
+                <th>应签字人</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<tr role="row" class="odd">
+        		<td>1</td>
+        		<td>Market</td>
+        		<td>Name 1</td>
+        		<td></td>
+        		<td></td>
+        		<td><button class="button-edit">编辑</button><button class="button-bin">删除</button></td>
+        	</tr>
+        	<tr role="row" class="even">
+        		<td>2</td>
+        		<td>Management</td>
+        		<td>Name 2</td>
+        		<td></td>
+        		<td></td>
+        		<td><button class="button-edit">编辑</button><button class="button-bin">删除</button></td>
+        	</tr>
+        	<tr role="row" class="odd">
+        		<td>3</td>
+        		<td>Sales</td>
+        		<td>Name 3</td>
+        		<td></td>
+        		<td></td>
+        		<td><button class="button-edit">编辑</button><button class="button-bin">删除</button></td>
+        	</tr>
+        </tbody>
+    </table>
+</div>
+
+    <!-- 弹窗 start -->
+    <div class="tcbox container-fluid" id="draggable1">
+        <div class="tcbox_cont row">
+            <div class="body-head-title">
+                <span class="h-title">新建/编辑</span>
+            </div>
+            <input type="button" class="tc_close">
+            <form id="poForm" method="post" action="index.html" class="form-inline">
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">序号</label>
+                        <input type="text" class="form-control input-w-3" name="codePo" id="codePo"  unselectable="on"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">签字层级</label>
+                        <input type="text" class="form-control input-w-3" name="codePo" id="codePo"  unselectable="on"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">签字内容</label>
+                        <input type="text" class="form-control input-w-3" name="codePo" id="codePo"  unselectable="on"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">应签字部门</label>
+                        <input type="text" class="form-control input-w-3" name="codePo" id="codePo"  unselectable="on"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">应签字人</label>
+                        <input type="text" class="form-control input-w-3" name="codePo" id="codePo"  unselectable="on"/>
+                    </div>
+                </div>
+                <div class="aligncenter">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary ">保存</button>
+                        <button id="return" type="reset" class="btn  btn-info">返回</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+<script type="text/javascript">	
+    //弹出框
+    var flag=0;
+    $('#tableSYS tbody').on( 'click', 'button', function () {
+    	if(!flag){
+    		flag=1;
+    		var clazz =$(this).attr('class');
+		    var actions={
+		        'button-edit':function(){
+		            var top = $('#body').scrollTop();
+		            var left = $('#body').scrollLeft();
+		            $('.tcbox').css({
+		                top: $(window).height() * 0.2 + top,
+		                left:$(window).height() * 0.5 + left
+		        	}).draggable().show();
+		    	}
+	        };
+	        actions[clazz]();
+	    }
+    	else{
+    		return false;
+    	}
+    });
+    
+    //关闭
+    $('.tcbox').on('click','.tc_close',function(){
+        $('.tcbox').hide();
+        $('#poForm')[0].reset();
+        flag=0;
+    });
+    
+</script>

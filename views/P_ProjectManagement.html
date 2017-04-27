@@ -1,0 +1,167 @@
+<div class="project">
+	<div class="cont">
+        <div class="r-header-body">
+            <div class="right-list">
+                <input type="text" id='q' placeholder="">
+                <button id="search" class="button-sytle1">查询</button>
+                <button id="add" class="button-sytle1">新建</button>
+            </div>
+        </div>
+        <table id="tablePo" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>客户编码</th>
+                    <th>客户名称</th>
+                    <th>地址</th>
+                    <th>项目名称</th>
+                    <th>区域</th>
+                    <th>状态</th>
+                    <th>销售跟踪单</th>
+                    <th>进度</th>
+                    <th style="min-width:200px;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            	<tr role="row" class="odd">
+            		<td class="sorting_1">0001</td>
+            		<td>C001</td>
+            		<td>Denny Li</td>
+            		<td>RD 202, xx street, China</td>
+            		<td>xxxxxxx</td>
+            		<td>Wuxi, Jiangsu</td>
+            		<td>Status 1</td>
+            		<td><a href="#">点击我</a></td>
+            		<td><a class="progress" href="javascript:;" page-name="Project_progress">点击我</a></td>
+            		<td><button class="button-edit">编辑</button><button class="button-bin">删除</button></td>
+            	</tr>
+            	<tr role="row" class="odd">
+            		<td class="sorting_1">0002</td>
+            		<td>C002</td>
+            		<td>Denny Li</td>
+            		<td>RD 202, xx street, China</td>
+            		<td>xxxxxxx</td>
+            		<td>Wuxi, Jiangsu</td>
+            		<td>Status 1</td>
+            		<td><a href="#">点击我</a></td>
+            		<td><a class="progress" href="#" page-name="Project_progress">点击我</a></td>
+            		<td><button class="button-edit">编辑</button><button class="button-bin">删除</button></td>
+            	</tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- 弹窗 start -->
+    <div class="tcbox container-fluid" id="draggable1">
+        <div class="tcbox_cont row">
+            <div class="body-head-title">
+                <span class="h-title">新建/编辑</span>
+            </div>
+            <input type="button" class="tc_close">
+            <form id="poForm" method="post" action="index.html" class="form-inline">
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">序号</label>
+                        <input type="text" class="form-control input-w-3" name="codePo" id="codePo"  unselectable="on"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">客户编码</label>
+                        <input type="text" class="form-control input-w-3" name="codePo" id="codePo"  unselectable="on"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">客户名称</label>
+                        <input type="text" class="form-control input-w-3" name="codePo" id="codePo"  unselectable="on"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">地址</label>
+                        <input type="text" class="form-control input-w-3" name="codePo" id="codePo"  unselectable="on"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">项目名称</label>
+                        <input type="text" class="form-control input-w-3" name="codePo" id="codePo"  unselectable="on"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">区域</label>
+                        <input type="text" class="form-control input-w-3" name="codePo" id="codePo"  unselectable="on"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">状态</label>
+                        <input type="text" class="form-control input-w-3" name="codePo" id="codePo"  unselectable="on"/>
+                    </div>
+                </div>
+                <div class="aligncenter">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary ">保存</button>
+                        <!--<button id="return" type="reset" class="btn  btn-info">返回</button>-->
+                    </div>
+                </div>
+                <input type="hidden" id="idPo" name="idPo:number" />
+            </form>
+        </div>
+    </div>
+    
+</div>
+<script type="text/javascript">
+	$('#tablePo').DataTable({
+        "stateDuration": -1,
+        "language": {
+            "url": "js/datatable/chinese.json"
+        },
+        dom: "tip",
+        pageLength:"50"
+    } );
+    
+    //弹出框
+    var flag=0;
+    $('#tablePo tbody').on( 'click', 'button', function () {
+    	if(!flag){
+    		flag=1;
+    		var clazz =$(this).attr('class');
+		    var actions={
+		        'button-edit':function(){
+		            var top = $('#body').scrollTop();
+		            var left = $('#body').scrollLeft();
+		            $('.tcbox').css({
+		                top: $(window).height() * 0.2 + top,
+		                left:$(window).height() * 0.5 + left
+		        	}).draggable().show();
+		    	}
+	        };
+	        actions[clazz]();
+	    }
+    	else{
+    		return false;
+    	}
+    });
+    
+    //关闭
+    $('.tcbox').on('click','.tc_close',function(){
+        $('.tcbox').hide();
+        $('#poForm')[0].reset();
+        flag=0;
+    });
+    
+    //点击查看进度
+    $(".progress").on("click",function(){
+//  	var id=$(this).attr("page-name");
+    	$.get("views/Project_progress.html",function(data){
+    		$("#body").html(data);
+	        RouterManager.setUrl({
+	        	groupId:"Project",
+	        	viewId:"Project_progress"
+	        });
+    	});
+    });
+    
+</script>

@@ -1,0 +1,141 @@
+<div class="project">
+	<div class="cont">
+        <div class="r-header-body">
+            <h2>项目进度</h2>
+        </div>
+        <table id="tablePor" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>名称</th>
+                    <th>最快天数</th>
+                    <th>最慢天数</th>
+                    <th>实际开始</th>
+                    <th>实际结束</th>
+                    <th>实际天数</th>
+                    <th>进度</th>
+                    <th>状态</th>
+                    <th>备注</th>
+                    <th>部门</th>
+                    <th>员工</th>
+                    <th>表单(点击)</th>
+                    <th style="min-width:200px;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            	<tr role="row" class="odd">
+            		<td class="sorting_1">Contents 1</td>
+            		<td>1</td>
+            		<td>1</td>
+            		<td>2017/3/21</td>
+            		<td>2017/4/25</td>
+            		<td>13</td>
+            		<td>Delay 2</td>
+            		<td>√</td>
+            		<td>abc</td>
+            		<td>Market</td>
+            		<td>Ben Wang</td>
+            		<td>FROM1表单</td>
+            		<td><button class="button-edit">编辑</button></td>
+            	</tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- 弹窗 start -->
+    <div class="tcbox container-fluid" id="draggable1">
+        <div class="tcbox_cont row">
+            <div class="body-head-title">
+                <span class="h-title">新建/编辑</span>
+            </div>
+            <input type="button" class="tc_close">
+            <form id="poForm" method="post" action="index.html" class="form-inline">
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">实际开始</label>
+                        <input type="text" id='datetimepicker1' style="width:120px">
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">实际结束</label>
+                        <input type="text" id='datetimepicker2' style="width:120px">
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">进度</label>
+                        <select class="input-w-3 select-cs1 form-control" name="statusId:number" id="statusId">
+                        	<option>Delay 2</option>
+                        	<option>On time</option>
+                        	<option>Processing</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">状态</label>
+                        <input type="text" class="form-control input-w-3" name="codePo" id="codePo"  unselectable="on"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 mar-top-20px">
+                    <div class="form-group">
+                        <label style="text-align:center;width:80px;">备注</label>
+                        <textarea class="form-control" style="width:180px" rows="3" name="remark" id="remark"></textarea>
+                    </div>
+                </div>
+                <div class="aligncenter">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary ">保存</button>
+                        <!--<button id="return" type="reset" class="btn  btn-info">返回</button>-->
+                    </div>
+                </div>
+                <input type="hidden" id="idPo" name="idPo:number" />
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(function () {
+        $('#datetimepicker1').datetimepicker({format:"YYYY-MM-DD"});
+        $('#datetimepicker2').datetimepicker({format:"YYYY-MM-DD"});
+		$('#tablePor').DataTable({
+	        "stateDuration": -1,
+	        "language": {
+	            "url": "js/datatable/chinese.json"
+	        },
+	        dom: "tip",
+	        pageLength:"50"
+	    } );
+	    
+	    //弹出框
+	    var flag=0;
+	    $('#tablePor tbody').on( 'click', 'button', function () {
+	    	if(!flag){
+	    		flag=1;
+	    		var clazz =$(this).attr('class');
+			    var actions={
+			        'button-edit':function(){
+			            var top = $('#body').scrollTop();
+			            var left = $('#body').scrollLeft();
+			            $('.tcbox').css({
+			                top: $(window).height() * 0.2 + top,
+			                left:$(window).height() * 0.5 + left
+			        	}).draggable().show();
+			    	}
+		        };
+		        actions[clazz]();
+		    }
+	    	else{
+	    		return false;
+	    	}
+	    });
+	    
+	    //关闭
+	    $('.tcbox').on('click','.tc_close',function(){
+	        $('.tcbox').hide();
+	        $('#poForm')[0].reset();
+	        flag=0;
+	    });
+    
+    });
+</script>

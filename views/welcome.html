@@ -1,0 +1,47 @@
+<!--主模板-->
+<script type="text/template" id="mainContent">
+    <div class="index_cont">
+		<div class="top_banner"><img src="images/banner.png"/></div>
+		<div class="home_content">
+			<p style="font-size:40px;line-height: 80px;text-align: center;">Welcome to the System</p>
+		</div>
+	</div>
+    <div class="tcbox container-fluid" id="nullAlert">
+        <div class="tcbox_cont row">
+            <div class="body-head-title">
+            </div>
+            <input type="button" class="tc_close" onClick="javascript:hideObj('#nullAlert');">
+            <div class="col-xs-12 mar-top-20px">
+                <div class="form-group">
+                    <label id="info"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/javascript">
+    function showObj(objid){
+        $(objid).show();
+
+    }
+    function hideObj(objid){
+        $(objid).hide();
+    }
+
+        var app={
+            init:function(){
+                $("#body").html($('#mainContent').html());
+//              this.bindEvents();
+            },
+            nullAlertShow:function(information){
+                var top = $('#body').scrollTop();
+                $('#nullAlert').css({
+                    top: $(window).height() * 0.2 + top
+                }).show();
+                $('#info').empty();
+//              $('#info').append(information);
+				$('#info').append("加载中...");
+            }
+        };
+        app.init();
+</script>
